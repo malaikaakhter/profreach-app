@@ -1,32 +1,31 @@
-import Link from "next/link";
+"use client";
+import { useState } from "react";
 
-export default function NavBar() {
-  return (
-    <nav className="bg-gray-600 border-gray-200">
-      <div className="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
-        <span className="text-lg font-bold text-gray-900">Profreach App</span>
+export default function login(){
+ const names=["mary","insiya","laraib","malaika", "maiza"]
+ const [number,setNumber]=useState(0);
+ const [name, setName]=useState("laiba");
+ function btnClick(n:number){
+  if(number<n) 
+  {
+    setNumber(number+1);
+  }
+  else{setNumber(0)}
+  setName(name)
+ }
 
-        <div className=" flex gap-4">
-          <Link
-            className="text-gray-800 hover:text-black "
-            href="/dashboard"
-          >
-            Dashboard
-          </Link>
-          <Link
-            className="text-gray-800 hover:text-black "
-            href="/professor"
-          >
-            Professor
-          </Link>
-          <Link
-            className="text-gray-800 hover:text-blue-600"
-            href="/students"
-          >
-            Students
-          </Link>
-        </div>
-      </div>
-    </nav>
-  );
+return(
+<main className="bg-sky-500">
+<div>{number}</div>
+{/* <p>{names.map((newname)=>{
+return <div>{newname}</div>
+}
+)}</p> */}
+<p>{names[number]}</p>
+<button onClick = {()=> 
+  btnClick(names.length -1)
+} className="p-2 bg-amber-500 text-white">Test</button>
+
+</main>
+);
 }
