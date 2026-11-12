@@ -1,38 +1,37 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 export default function Test(){
-
-  const [students, setStudents]=useState([
-    {id:0, name:"laiba", semester:7},
-    {id:1, name:"malaika", semester:6},
-    {id:2, name:"areeba", semester:7},
-    
-
-
-  ]);
-  const promoteStudent=(index:number)=>{
-console.log(index)
-setStudents((previous)=>previous.map((student)=>student.id==index?
-{...student, semester: student.semester+1}:student))
-
+  const[seconds,setSeconds]=useState(0)
+  const timerRef = useRef<ReturnType<typeof setInterval> |null>(null);
+  const startTimer=()=>{
+    if(timerRef.current !==null) return;
+timerRef.current = setInterval(()=>{
+  setSeconds((previous)=>(previous+1));
+},1000)
   }
-
-  return(
-  <main>
-    {students.map((student,index)=>{
-      return(<>
-      <div className="border p-4 m-4">
-        <h2>Student roll no:{student.id}</h2>
-        <h2>Student name:{student.name}</h2>
-        <h2>Student semester:{student.semester}</h2>
-        <button onClick={()=> promoteStudent(index)
-        }className="bg-purple-900 p-2">Promote student </button>
-
-      </div>
-      
-      
-      </>)
-    })}
+const stopTimer=()=>{
+ if(timerRef.current !==null){
+  clearInterval(timerRef.current);
+  timerRef.current=null;
+    }}
+const resetTimer=()=>{
+    setSeconds(0);
+    stopTimer();
+  }
+return(
+  <main className="p-10 text-center">
+    <h1 className="text-3xl font-bold"> Seconds {seconds}</h1>
+   <div className="flex gap-3 justify-center mt-5">
+     <button onClick={()=>{
+      startTimer()
+     }}className="bg-gray-400 text-white p-2 rounded-3xl">Start</button>
+    <button onClick={()=>{
+      stopTimer()
+     }} className="bg-gray-400 text-white p-2 rounded-3xl">Stop</button>
+    <button onClick={()=>{
+      resetTimer()
+     }} className="bg-gray-400 text-white p-2 rounded-3xl">Reset</button>
+   </div>
 
   </main>
 
