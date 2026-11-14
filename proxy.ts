@@ -10,9 +10,9 @@ export default function middleware(request:NextRequest){
 }
 export const config={
     matcher:[
-        "/dashboard/:path*",
-"/professor/:path*",
-"/students/:path*",
+// "/dashboard/:path*",
+// "/professor/:path*",
+// "/students/:path*",
 
     ]
 
